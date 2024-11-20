@@ -1,15 +1,25 @@
 const express = require('express')
+const{
+    getAllPosts,
+    getApost,
+    createPost,
+} = require('../controllers/PostController')
+
 
 const router = express.Router()
 
 // Get all posts
 
-router.get('/',(req,res)=>{
-    res.json({mssg:"Get all posts"})
-})
+router.get('/',getAllPosts)
 
 // Get a single post
-router.get('/:id',(req,res)=>{
-    res.json({mssg:`Get post with id ${req.params.id}`})
-})
+router.get('/:id',getApost)
+
+// Post 
+router.post('/',createPost)
+
+// // Comment on a post
+// router.post('/:id/comment',commentOnPost)
+
+
 module.exports = router

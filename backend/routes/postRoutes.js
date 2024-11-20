@@ -3,6 +3,7 @@ const{
     getAllPosts,
     getApost,
     createPost,
+    commentOnPost
 } = require('../controllers/PostController')
 
 
@@ -18,8 +19,8 @@ router.get('/:id',getApost)
 // Post 
 router.post('/',createPost)
 
-// // Comment on a post
-// router.post('/:id/comment',commentOnPost)
+// Comment on a post
+router.post('/:id/comment',commentOnPost)
 
 
 module.exports = router

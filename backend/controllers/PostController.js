@@ -66,10 +66,35 @@ const createPost = async (req,res)=>{
     }
 }
 
+// Adding comments to each posts
+
+const commentOnPost  = async (req,res)=>{
+    try{
+        const {id} = req.params;
+        const {text} = req.body;
+        if(!text)
+            return res.status(400).json({message:"Comment text is required"})
+        if(!mongoose.Types.ObjectId.isValid(id))
+            return res.status(404).json({message:"Invalid post Id"})
+        const post = await Post.findById(id);
+        if(!post)
+            res.status(404).json({message:"Post not found"})
+        post.comments.push({text})
+        await post.save();
+        res.status(201).json(post)
+    }
+    catch(error){
+        res.status(500).json({message:"Server error",error:error.message})
+    }
+}
+
+
+
 
 
 module.exports={
     getAllPosts,
     getApost,
-    createPost
+    createPost,
+    commentOnPost
 }
